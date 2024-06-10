@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import React, { useState } from 'react';
+import { Container, Typography, Box } from '@mui/material';
+import QuizzContainer from './components/QuizzContainer';
+import Question from './components/Question';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [showQuestions, setShowQuestions] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [selectedLeader, setSelectedLeader] = useState('');
+  const [responses, setResponses] = useState([]);
+
+  const startQuiz = (leader) => {
+    setSelectedLeader(leader);
+    setShowQuestions(true);
+  };
+
+  const handleSaveResponse = (questionId, answer) => {
+    setResponses((prevResponses) => [
+      ...prevResponses,
+      { questionId, answer },
+    ]);
+  };
+
+  const handleQuizCompletion = () => {
+    setQuizCompleted(true);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Container maxWidth="sm">
+      {quizCompleted ? (
+        <Box textAlign="center" mt={5} color="white">
+          <Typography variant="h4" gutterBottom>
+            Gracias por contestar la encuesta.
+          </Typography>
+          <Typography variant="body1">
+            Tus respuestas han sido guardadas con éxito.
+          </Typography>
+        </Box>
+      ) : showQuestions ? (
+        <Question
+          leader={selectedLeader}
+          onSaveResponse={handleSaveResponse}
+          responses={responses}
+          onComplete={handleQuizCompletion}
+        />
+      ) : (
+        <QuizzContainer onStart={startQuiz} />
+      )}
+    </Container>
+  );
+};
 
-export default App
+export default App;
