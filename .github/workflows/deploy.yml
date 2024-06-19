@@ -23,7 +23,7 @@ jobs:
         npm install
         npm run build
 
-    - name: 📂 Sync files to admin
+    - name: 📂 Sync files to encuestas
       # Condición para ejecutar solo en main y solo después del merge
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
