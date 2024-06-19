@@ -1,46 +1,33 @@
-// src/components/Question.jsx
 import React, { useState } from 'react';
 import { Box, Typography, Button, RadioGroup, FormControlLabel, Radio, Card, CardContent } from '@mui/material';
 
-// Datos estáticos para pruebas
-const staticQuestions = [
-  {
-    id: 1,
-    question: "¿Cómo calificaría su satisfacción general con el producto?",
-    options: ["Muy satisfecho", "Satisfecho", "Insatisfecho"],
-  },
-  {
-    id: 2,
-    question: "¿Recomendaría nuestro producto a otras personas?",
-    options: ["Definitivamente sí", "Probablemente no", "Definitivamente no"],
-  },
-  {
-    id: 3,
-    question: "¿Qué tan útil encontró el servicio al cliente?",
-    options: ["Muy útil", "Útil", "Nada útil"],
-  },
-];
-
-const Question = ({ leader, onSaveResponse, onComplete, responses }) => {
+const Question = ({ leader, questions, onSaveResponse }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
 
-  const currentQuestion = staticQuestions[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
 
   const handleNext = () => {
-    if (!selectedOption) {
+    if (selectedOption === '') {
       alert("Por favor, selecciona una respuesta");
       return;
     }
 
-    onSaveResponse(currentQuestion.id, selectedOption);
+    // Encuentra el índice de la opción seleccionada
+    const selectedOptionIndex = currentQuestion.options.indexOf(selectedOption);
 
+    // Verifica si esta es la última pregunta
+    const isLastQuestion = currentQuestionIndex === questions.length - 1;
+
+    // Guarda la respuesta actual y verifica si es la última pregunta
+    onSaveResponse(currentQuestion.id, selectedOptionIndex, isLastQuestion);
+
+    // Resetea la opción seleccionada para la siguiente pregunta
     setSelectedOption('');
-    if (currentQuestionIndex < staticQuestions.length - 1) {
+
+    // Si no es la última pregunta, avanza a la siguiente
+    if (!isLastQuestion) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      // Finalización del quizz
-      onComplete();
     }
   };
 
@@ -70,7 +57,7 @@ const Question = ({ leader, onSaveResponse, onComplete, responses }) => {
             onClick={handleNext}
             style={{ marginTop: '20px' }}
           >
-            {currentQuestionIndex < staticQuestions.length - 1
+            {currentQuestionIndex < questions.length - 1
               ? "Siguiente"
               : "Finalizar"}
           </Button>

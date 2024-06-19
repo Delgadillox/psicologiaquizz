@@ -13,20 +13,12 @@ import {
   CardContent,
 } from '@mui/material';
 
-// Datos estáticos para pruebas
-const staticQuiz = {
-  title: "Encuesta de Satisfacción",
-  company: "Empresa A",
-  leaderRequired: true,
-};
 
-const leaders = ["Líder 1", "Líder 2", "Líder 3"];
-
-const QuizzContainer = ({ onStart }) => {
+const QuizzContainer = ({ onStart, quizzData }) => {
   const [leader, setLeader] = useState('');
 
   const handleStartClick = () => {
-    if (staticQuiz.leaderRequired && !leader) {
+    if (quizzData.leaderRequired && !leader) {
       alert("Por favor, selecciona un líder");
     } else {
       onStart(leader);
@@ -38,12 +30,12 @@ const QuizzContainer = ({ onStart }) => {
       <CardContent>
         <Box display="flex" flexDirection="column" alignItems="center" p={3}>
           <Typography variant="h4" gutterBottom>
-            {staticQuiz.title}
+            {quizzData.title}
           </Typography>
           <Typography variant="h6" gutterBottom>
-            {staticQuiz.company}
+            {quizzData.company}
           </Typography>
-          {staticQuiz.leaderRequired ? (
+          {quizzData.leaderRequired ? (
             <FormControl fullWidth margin="normal">
               <InputLabel>Líder</InputLabel>
               <Select
@@ -51,14 +43,18 @@ const QuizzContainer = ({ onStart }) => {
                 value={leader}
                 onChange={(e) => setLeader(e.target.value)}
               >
-                {leaders.map((leader) => (
+                {quizzData.leaders.map((leader) => (
                   <MenuItem key={leader} value={leader}>
                     {leader}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-          ) : null}
+          ) : (
+          <Typography variant="h7" align="center" gutterBottom>
+            {quizzData.leader}
+          </Typography>
+          )}
           <Button
             variant="contained"
             color="primary"
