@@ -44,8 +44,8 @@ const QuizzContainer = ({ onStart, quizzData }) => {
                 onChange={(e) => setLeader(e.target.value)}
               >
                 {quizzData.leaders.map((leader) => (
-                  <MenuItem key={leader} value={leader}>
-                    {leader}
+                  <MenuItem key={leader.idLider} value={leader.idLider}>
+                    {leader.Nombre}
                   </MenuItem>
                 ))}
               </Select>

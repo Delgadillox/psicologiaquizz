@@ -59,15 +59,17 @@ const App = () => {
         const result = response.data[0];
         console.log(result);
         if (result) {
-          const leaderRequired = result.lider === 0;
+          const leaderRequired = result.NombreLider === 0 || result.NombreLider === "0";
+          console.log("leaderRequired", leaderRequired)
           let leaders = [];
           if (leaderRequired) {
             const plantResponse = await axios.get(
-              `https://psicologia-aplicada.com/quizz/psicologia-api/api/getLideres.php?plant=${result.Empresa}`
+              `https://psicologia-aplicada.com/quizz/psicologia-api/api/getLideres.php?plant=${result.IdEmpresa}`
             );
-            leaders = plantResponse.data[0];
+            leaders = plantResponse.data;
+            console.log(plantResponse);
           }
-
+          console.log("leaders", leaders);
           const data = {
             title: result.Encuesta,
             company: result.Empresa,
