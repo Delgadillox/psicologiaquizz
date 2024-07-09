@@ -2,7 +2,8 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  background-color: #02083ffa;
+  background-color: #009B85;
+  background: linear-gradient(120deg, #009B85 30%, #9DD8B3 90%);
 }
 
 #root {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, RadioGroup, FormControlLabel, Radio, Card, CardContent } from '@mui/material';
+import Logo from "../assets/logo.jpg";
 
 const Question = ({ leader, questions, onSaveResponse }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -32,8 +33,9 @@ const Question = ({ leader, questions, onSaveResponse }) => {
   };
 
   return (
-    <Card>
+    <Card style={{ borderRadius: '15px', overflow: 'hidden', boxShadow: '0px 4px 50px #9DD8B3' }}>
       <CardContent>
+        <img src={Logo} alt="Logo" width="100%"/>
         <Box display="flex" flexDirection="column" alignItems="center" p={3}>
           <Typography variant="h5" gutterBottom>
             {currentQuestion.question}

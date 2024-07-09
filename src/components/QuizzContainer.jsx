@@ -12,6 +12,8 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
+import Logo from "../assets/logo.jpg";
+
 
 
 const QuizzContainer = ({ onStart, quizzData }) => {
@@ -26,10 +28,11 @@ const QuizzContainer = ({ onStart, quizzData }) => {
   };
 
   return (
-    <Card>
+    <Card style={{ borderRadius: '15px', overflow: 'hidden', boxShadow: '0px 4px 50px #9DD8B3' }}>
       <CardContent>
+        <img src={Logo} alt="Logo" width="100%"/>
         <Box display="flex" flexDirection="column" alignItems="center" p={3}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" align="center" gutterBottom>
             {quizzData.title}
           </Typography>
           <Typography variant="h6" gutterBottom>
